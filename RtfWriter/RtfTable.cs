@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HooverUnlimited.DotNetRtfWriter
+namespace Lansweeper.RtfWriter
 {
     /// <summary>
     ///     Summary description for RtfTable

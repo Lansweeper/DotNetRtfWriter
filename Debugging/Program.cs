@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using HooverUnlimited.DotNetRtfWriter;
+using Lansweeper.RtfWriter;
 
 namespace Debugging
 {

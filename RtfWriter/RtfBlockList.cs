@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace HooverUnlimited.DotNetRtfWriter
+namespace Lansweeper.RtfWriter
 {
     /// <summary>
     ///     A container for an array of content blocks. For example, a footnote

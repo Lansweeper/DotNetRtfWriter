@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace HooverUnlimited.DotNetRtfWriter
+namespace Lansweeper.RtfWriter
 {
     /// <summary>
     ///     Summary description for RtfTableCell

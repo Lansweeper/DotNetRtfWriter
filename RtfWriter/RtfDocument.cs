@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 
-namespace HooverUnlimited.DotNetRtfWriter
+namespace Lansweeper.RtfWriter
 {
     /// <summary>
     ///     Summary description for RtfDocument

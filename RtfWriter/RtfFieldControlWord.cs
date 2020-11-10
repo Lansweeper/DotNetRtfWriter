@@ -1,4 +1,4 @@
-namespace HooverUnlimited.DotNetRtfWriter
+namespace Lansweeper.RtfWriter
 {
     public class RtfFieldControlWord : RtfRenderable
     {

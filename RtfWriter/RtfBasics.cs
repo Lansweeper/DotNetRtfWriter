@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 
-namespace HooverUnlimited.DotNetRtfWriter
+namespace Lansweeper.RtfWriter
 {
     /// <summary>
     ///     Horizontal alignment.

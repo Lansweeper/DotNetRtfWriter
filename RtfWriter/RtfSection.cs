@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace HooverUnlimited.DotNetRtfWriter
+namespace Lansweeper.RtfWriter
 {
     public class RtfSection : RtfBlock
     {

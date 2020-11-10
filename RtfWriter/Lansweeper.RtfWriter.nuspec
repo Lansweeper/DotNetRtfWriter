@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata minClientVersion="3.3">
+		<id>Lansweeper.RtfWriter</id>
+		<version>$version$</version>
+		<title>Lansweeper.RtfWriter</title>
+		<authors>Lansweeper</authors>
+		<description>Library to create RTF-documents from code.</description>
+
+		<contentFiles>
+			<files include="*" />
+		</contentFiles>
+
+
+		<references>
+			<group targetFramework="net46">
+				<reference file="Lansweeper.RtfWriter.dll" />
+			</group>
+		</references>
+
+	</metadata>
+
+	<files>
+		<file src="bin\Release\Lansweeper.RtfWriter.dll" target="lib\net46" />
+	</files>
+
+</package>
