@@ -62,13 +62,13 @@ jobs:
 
             $file = Get-Item << pipeline.parameters.csproj-file >>
             [xml]$cn = Get-Content $file
-            $cn.Project.PropertyGroup.PackageVersion="$env:package_version"
             $cn.Project.PropertyGroup.Version="$env:package_version"
-            $cn.Project.PropertyGroup.FileVersion="$env:package_version"
             $cn.Save($file.FullName)
             type ./<< pipeline.parameters.csproj-file >>
-            dotnet pack << pipeline.parameters.csproj-file >> --configuration Release
-
+      
+      - run:
+          name: Pack the package
+          command: dotnet pack << pipeline.parameters.csproj-file >> --configuration Release
       - run:
           name: Publish the package
           command: |
