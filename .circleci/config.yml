@@ -58,7 +58,7 @@ jobs:
       - run:
           name: Set correct version in csproj file, build and pack it
           command: |
-            $env:package_version = "1.0.0"
+            $env:package_version = "8.0.3"
             $file = Get-Item << pipeline.parameters.csproj-file >>
             [xml]$cn = Get-Content $file
             $cn.Project.PropertyGroup.Version="$env:package_version"
