@@ -80,9 +80,9 @@ jobs:
       - run:
           name: Publish old packages
           command: |
-              dotnet nuget push RtfWriter/nuget_history/Lansweeper.RtfWriter.8.0.1.nupkg --source "github" --api-key $env:GITHUB_TOKEN
-              dotnet nuget push RtfWriter/nuget_history/Lansweeper.RtfWriter.8.0.2.nupkg --source "github" --api-key $env:GITHUB_TOKEN
-              dotnet nuget push RtfWriter/nuget_history/Lansweeper.RtfWriter.8.0.3.nupkg --source "github" --api-key $env:GITHUB_TOKEN
+              dotnet nuget push nuget_history/Lansweeper.RtfWriter.8.0.1.nupkg --source "github" --api-key $env:GITHUB_TOKEN
+              dotnet nuget push nuget_history/Lansweeper.RtfWriter.8.0.2.nupkg --source "github" --api-key $env:GITHUB_TOKEN
+              dotnet nuget push nuget_history/Lansweeper.RtfWriter.8.0.3.nupkg --source "github" --api-key $env:GITHUB_TOKEN
 
 workflows:
   version: 2
