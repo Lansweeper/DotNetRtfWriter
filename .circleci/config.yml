@@ -37,7 +37,7 @@ jobs:
               </packageSources>
               <packageSourceCredentials>
                 <github>
-                  <add key='Username' value='jeroensavat' />
+                  <add key='Username' value='LansweeperCloudDevelopment' />
                   <add key='ClearTextPassword' value='$env:GITHUB_TOKEN' />
                 </github>
               </packageSourceCredentials>
@@ -85,7 +85,7 @@ workflows:
           requires: 
             - build
           context: 
-            - lec-jeroen
+            - lec-github-packages-rw
           filters:
             branches:
               only: master
@@ -94,7 +94,7 @@ workflows:
           requires:
             - nuget-prepare
           context: 
-            - lec-jeroen
+            - lec-github-packages-rw
           filters:
             branches:
               only: master
