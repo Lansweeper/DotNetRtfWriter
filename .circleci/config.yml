@@ -71,8 +71,28 @@ jobs:
           command: |
               dotnet nuget push << pipeline.parameters.nuget-output-file >> --source "github" --api-key $env:GITHUB_TOKEN
 
+  nuget-publish-history:
+    executor:
+      name: win/default
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Publish old packages
+          command: |
+              dotnet nuget push RtfWriter/nuget_history/Lansweeper.RtfWriter.8.0.1.nupkg --source "github" --api-key $env:GITHUB_TOKEN
+              dotnet nuget push RtfWriter/nuget_history/Lansweeper.RtfWriter.8.0.2.nupkg --source "github" --api-key $env:GITHUB_TOKEN
+              dotnet nuget push RtfWriter/nuget_history/Lansweeper.RtfWriter.8.0.3.nupkg --source "github" --api-key $env:GITHUB_TOKEN
+
 workflows:
   version: 2
+
+  temporary_push_history:
+    jobs:
+      - nuget-publish-history:
+          filters:
+            branches:
+              only: hotfix/history
 
   ci_and_release_master:
     jobs:
@@ -98,3 +118,4 @@ workflows:
           filters:
             branches:
               only: master
+
