@@ -92,7 +92,7 @@ workflows:
       - build:
           filters:
             branches:
-              only: master
+              only: hotfix/history
 
       - nuget-prepare:
           requires: 
@@ -101,7 +101,7 @@ workflows:
             - lec-github-packages-rw
           filters:
             branches:
-              only: master
+              only: hotfix/history
 
       - nuget-publish-history:
           requires: 
