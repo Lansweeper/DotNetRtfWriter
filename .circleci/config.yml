@@ -58,20 +58,24 @@ jobs:
       - run:
           name: Set correct version in csproj file, build and pack it
           command: |
-            $env:package_version = 1.0.0
-
+            $env:package_version = "1.0.0"
             $file = Get-Item << pipeline.parameters.csproj-file >>
             [xml]$cn = Get-Content $file
             $cn.Project.PropertyGroup.Version="$env:package_version"
             $cn.Save($file.FullName)
             type ./<< pipeline.parameters.csproj-file >>
-      - run:
-          name: Pack the package
-          command: dotnet pack << pipeline.parameters.csproj-file >> --configuration Release
-      - run:
-          name: Publish the package
-          command: |
-              dotnet nuget push << pipeline.parameters.nuget-output-file >> --source "github" --api-key $env:GITHUB_TOKEN
+
+      - run: 
+          name: Attempt to pack
+          command: nuget pack RtfWriter/Lansweeper.RtfWriter.nuspec -OutputDirectory build\packages -Version 1.0.0 -Properties "Configuration=Release TargetFrameworkVersion=netstandard2.0;" -IncludeReferencedProjects
+
+#      - run:
+#          name: Pack the package
+#          command: dotnet pack << pipeline.parameters.csproj-file >> --configuration Release
+#      - run:
+#          name: Publish the package
+#          command: |
+#              dotnet nuget push << pipeline.parameters.nuget-output-file >> --source "github" --api-key $env:GITHUB_TOKEN
 
 workflows:
   version: 2
