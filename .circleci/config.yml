@@ -76,12 +76,6 @@ jobs:
 
 workflows:
   version: 2
-  ci_on_pr:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore: master
 
   ci_and_release_master:
     jobs:
