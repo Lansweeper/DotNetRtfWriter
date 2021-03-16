@@ -90,6 +90,8 @@ workflows:
   temporary_push_history:
     jobs:
       - nuget-publish-history:
+          context: 
+            - lec-github-packages-rw
           filters:
             branches:
               only: hotfix/history
