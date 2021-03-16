@@ -64,7 +64,7 @@ jobs:
             $cn.Project.PropertyGroup.Version="$env:package_version"
             $cn.Save($file.FullName)
             type ./<< pipeline.parameters.csproj-file >>
-            nuget pack RtfWriter/Lansweeper.RtfWriter.nuspec -Version $env:package_version -Properties "Configuration=Release TargetFrameworkVersion=netstandard2.0;" -IncludeReferencedProjects
+            nuget pack RtfWriter/Lansweeper.RtfWriter.nuspec -OutputDirectory RtfWriter/bin/Release/ -Version $env:package_version -Properties "Configuration=Release TargetFrameworkVersion=netstandard2.0;" -IncludeReferencedProjects
 
       - run:
           name: Publish the package
