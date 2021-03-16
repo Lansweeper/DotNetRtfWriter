@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - checkout
-      - run: dotnet build << pipeline.parameters.csproj-file >>
+      - run: dotnet build << pipeline.parameters.csproj-file >> --configuration Release
       - persist_to_workspace:
           root: .
           paths:
