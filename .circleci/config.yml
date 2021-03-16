@@ -89,7 +89,23 @@ workflows:
 
   temporary_push_history:
     jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+
+      - nuget-prepare:
+          requires: 
+            - build
+          context: 
+            - lec-github-packages-rw
+          filters:
+            branches:
+              only: master
+
       - nuget-publish-history:
+          requires: 
+            - nuget-prepare
           context: 
             - lec-github-packages-rw
           filters:
