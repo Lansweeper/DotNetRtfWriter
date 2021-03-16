@@ -6,7 +6,7 @@ parameters:
     default: "RtfWriter/RtfWriter.csproj"
   nuget-output-file:
     type: string
-    default: "RtfWriter/bin/Release/Lansweeper.RtfWriter.1.0.0.nupkg"
+    default: "RtfWriter/bin/Release/Lansweeper.RtfWriter.8.0.3.nupkg"
 
 orbs:
   win: circleci/windows@2.2.0
