@@ -1,0 +1,109 @@
+version: 2.1
+
+parameters:
+  csproj-file:
+    type: string
+    default: "RtfWriter/RtfWriter.csproj"
+  output-file:
+    type: string
+    default: "RtfWriter/bin/Release/RtfWriter.1.0.0.nupkg"
+
+orbs:
+  win: circleci/windows@2.2.0
+
+jobs:
+  build:
+    executor: win/default
+
+    steps:
+      - checkout
+      - run: dotnet build << pipeline.parameters.csproj-file >>
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  nuget-prepare:
+    executor:
+      name: win/default
+    steps:
+      - run:
+          name: Create local nuget config file
+          command: |
+            $xml = "<?xml version='1.0' encoding='utf-8'?>
+            <configuration>
+              <packageSources>
+                <add key='github' value='https://nuget.pkg.github.com/Lansweeper/index.json' />
+              </packageSources>
+              <packageSourceCredentials>
+                <github>
+                  <add key='Username' value='jeroensavat' />
+                  <add key='ClearTextPassword' value='$env:GITHUB_TOKEN' />
+                </github>
+              </packageSourceCredentials>
+            </configuration>"
+            Out-File -FilePath nuget.config -InputObject $xml -Encoding ASCII
+      - run: type nuget.config
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  nuget-publish:
+    executor:
+      name: win/default
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Set correct version in csproj file, build and pack it
+          command: |
+            $env:package_version = 1.0.0
+
+            $file = Get-Item << pipeline.parameters.csproj-file >>
+            [xml]$cn = Get-Content $file
+            $cn.Project.PropertyGroup.PackageVersion="$env:package_version"
+            $cn.Project.PropertyGroup.Version="$env:package_version"
+            $cn.Project.PropertyGroup.FileVersion="$env:package_version"
+            $cn.Save($file.FullName)
+            type ./<< pipeline.parameters.csproj-file >>
+            dotnet pack << pipeline.parameters.csproj-file >> --configuration Release
+
+      - run:
+          name: Publish the package
+          command: |
+              dotnet nuget push << pipeline.parameters.output-file >> --source "github" --api-key $env:GITHUB_TOKEN
+
+workflows:
+  version: 2
+  ci_on_pr:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: master
+
+  ci_and_release_master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+
+      - nuget-prepare:
+          requires: 
+            - build
+          context: 
+            - lec-jeroen
+          filters:
+            branches:
+              only: master
+
+      - nuget-publish:
+          requires:
+            - nuget-prepare
+          context: 
+            - lec-jeroen
+          filters:
+            branches:
+              only: master
