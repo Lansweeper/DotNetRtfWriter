@@ -11,7 +11,7 @@
 			<files include="*" />
 		</contentFiles>
 
-
+    <!--Needed to restore references when client installs package-->
 		<references>
 			<group targetFramework="net46">
 				<reference file="Lansweeper.RtfWriter.dll" />
@@ -20,6 +20,7 @@
 
 	</metadata>
 
+  <!--Needed for package-->
 	<files>
 		<file src="bin\Release\Lansweeper.RtfWriter.dll" target="lib\net46" />
 	</files>

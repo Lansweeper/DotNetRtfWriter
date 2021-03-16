@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Target Name="Pack"></Target>  
   <PropertyGroup>
+    <Company>Lansweeper</Company>
+    <Title>Lansweeper RtfWriter</Title>
+    <Description>More Info : http://www.lansweeper.com</Description>
+    <Product>Lansweeper RtfWriter</Product>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
@@ -84,6 +87,11 @@
     <RegisterForComInterop>False</RegisterForComInterop>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
+  <ItemGroup>
+    <!-- ... -->
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0"/>
+    <!-- ... -->
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
