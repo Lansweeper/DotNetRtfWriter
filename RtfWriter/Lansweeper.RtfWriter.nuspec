@@ -6,7 +6,7 @@
 		<title>Lansweeper.RtfWriter</title>
 		<authors>Lansweeper</authors>
 		<description>Library to create RTF-documents from code.</description>
-
+		<repository type="git" url="https://github.com/Lansweeper/DotNetRtfWriter"  />
 		<contentFiles>
 			<files include="*" />
 		</contentFiles>
