@@ -7,9 +7,18 @@ parameters:
   nuget-output-file:
     type: string
     default: "RtfWriter/bin/Release/Lansweeper.RtfWriter.8.0.3.nupkg"
+  sonar-project:
+    type: string
+    default: "Lansweeper_DotNetRtfWriter"
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:12
 
 orbs:
   win: circleci/windows@2.2.0
+  sonar-check: lansweeper/sonar@0.0.6
 
 jobs:
   build:
@@ -17,7 +26,17 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: Install SonarScanner for MSBuild .NET Core Global Tool
+          command: dotnet tool install --global dotnet-sonarscanner
+      - run:
+          name: Start SonarScanner
+          command: dotnet sonarscanner begin /k:"<< pipeline.parameters.sonar-project >>" /d:sonar.verbose=true /o:"lansweeper" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$Env:SONAR_TOKEN /d:sonar.language="cs"
       - run: dotnet build << pipeline.parameters.csproj-file >> --configuration Release
+      - run:
+          name: Upload SonarScanner results
+          command: dotnet sonarscanner end /d:sonar.login=$Env:SONAR_TOKEN
+
       - persist_to_workspace:
           root: .
           paths:
@@ -65,35 +84,59 @@ jobs:
             $cn.Save($file.FullName)
             type ./<< pipeline.parameters.csproj-file >>
             nuget pack RtfWriter/Lansweeper.RtfWriter.nuspec -OutputDirectory RtfWriter/bin/Release/ -Version $env:package_version -Properties "Configuration=Release TargetFrameworkVersion=netstandard2.0;" -IncludeReferencedProjects
-
       - run:
           name: Publish the package
           command: |
-              dotnet nuget push << pipeline.parameters.nuget-output-file >> --source "github" --api-key $env:GITHUB_TOKEN
+            dotnet nuget push << pipeline.parameters.nuget-output-file >> --source "github" --api-key $env:GITHUB_TOKEN
+
+  sonar:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - sonar-check/get_sonar_status:
+          report_file: "/home/circleci/project/.sonarqube/out/.sonar/report-task.txt"
 
 workflows:
   version: 2
-
+  ci_on_pr:
+    jobs:
+      - build:
+          context:
+            - lec-github-packages-rw
+            - SonarCloud
+          filters:
+            branches:
+              ignore: master
+      - sonar:
+          context:
+            - SonarCloud
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: master
   ci_and_release_master:
     jobs:
       - build:
+          context:
+            - lec-github-packages-rw
+            - SonarCloud
           filters:
             branches:
               only: master
-
       - nuget-prepare:
-          requires: 
+          requires:
             - build
-          context: 
+          context:
             - lec-github-packages-rw
           filters:
             branches:
               only: master
-
       - nuget-publish:
           requires:
             - nuget-prepare
-          context: 
+          context:
             - lec-github-packages-rw
           filters:
             branches:
