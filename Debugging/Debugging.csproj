@@ -17,11 +17,5 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\RtfWriter\Lansweeper.RtfWriter.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="demo5.jpg">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
 		
 </Project>

@@ -26,7 +26,6 @@ namespace Debugging
             // RtfBlockList class. (See Demos.)
             RtfTable table;
             RtfParagraph par;
-            RtfImage img;
             // Don't instantiate RtfCharFormat by using ``new'' keyword, either.
             // An addCharFormat method are provided by RtfParagraph objects.
             RtfCharFormat fmt;
@@ -105,14 +104,7 @@ namespace Debugging
             // ==========================================================================
             // Demo 5: Image
             // ==========================================================================
-            img = doc.AddImage("demo5.jpg", ImageFileType.Jpg);
-            // You may set the width only, and let the height be automatically adjusted
-            // to keep aspect ratio.
-            img.Width = 130;
-            // Place the image on a new page. The ``StartNewPage'' property is also supported
-            // by paragraphs and tables.
-            //img.StartNewPage = true;
-            img.StartNewPara = true;
+            // Removed
 
 
             // ==========================================================================
