@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: DotNetRtfWriter
+  description: .NET RTF Writer Library
+  annotations:
+    github.com/project-slug: Lansweeper/DotNetRtfWriter
+spec:
+  type: github-repository
+  owner: @discovery-1
+  lifecycle: stable
