@@ -7,5 +7,5 @@ metadata:
     github.com/project-slug: Lansweeper/DotNetRtfWriter
 spec:
   type: github-repository
-  owner: @discovery-1
+  owner: user:discovery-1
   lifecycle: stable
